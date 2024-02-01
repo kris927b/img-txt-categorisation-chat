@@ -12,7 +12,7 @@ build/
 develop-eggs/
 dist/
 downloads/
-data/
+img_data/
 eggs/
 .eggs/
 lib/
