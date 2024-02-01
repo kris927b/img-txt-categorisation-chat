@@ -195,7 +195,7 @@ class SenticapReader(object):
                     continue
                 if sent.getSentimentPolarity() == sent.POSITIVE_SENTIMENT and not pos:
                     continue
-                fout.write('%s,%d,"%s"\n' % (im.getFilename(), 
+                fout.write('{},{:d},"{}"\n'.format(im.getFilename(), 
                         sent.getSentimentPolarity()==sent.POSITIVE_SENTIMENT, 
                         ' '.join(sent.getTokens())))
         fout.close()
@@ -260,20 +260,20 @@ def main():
     else:
         count = sr.countExamples(train=args.train, test=args.test, val=args.val,
                 pos=args.pos, neg=args.neg)
-        print "Input Filename:", args.filename
-        print "Filters:",
+        print("Input Filename:", args.filename)
+        print("Filters:")
         if args.train:
-            print "Train",
+            print("Train")
         if args.test:
-            print "Test",
+            print("Test")
         if args.val:
-            print "Val",
+            print("Val")
         if args.pos:
-            print "Positive",
+            print("Positive")
         if args.neg:
-            print "Negative",
-        print "\n"
-        print "Number of images: %d\nNumber of Sentences: %d" % count
+            print("Negative")
+        print("\n")
+        print("Number of images: {:d}\nNumber of Sentences: {:d}".format(count))
 
 
 if __name__ == "__main__":

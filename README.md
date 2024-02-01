@@ -27,9 +27,16 @@ SentiCap + MSCOCO_2014_val: Papers with Code - SentiCap Dataset + COCO Dataset: 
 - Follow this tutorial to get the MS COCO dataset from 2014 (Only validation is needed for SentiCap) - COCO Dataset: A Step-by-Step Guide to Loading and Visualizing 
 - Connect the captions and labels from SentiCap and MSCOCO to the final dataset we are gonna use. References to the img file names are in the senticap_dataset.json and a reading script in the senticap_dataset folder.
 
-#### Bash code for downloading MSCOCO_2014_val:
+#### Bash code for downloading validation images in MSCOCO_2014:
 ```bash
 wget http://images.cocodataset.org/zips/val2017.zip -O coco_val2017.zip
 unzip coco_val2017.zip -d coco_val2017
 rm coco_val2017.zip
+```
+
+#### Bash code for downloading the annotations for MSCOCO:
+```bash
+wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip -O coco_ann2017.zip
+unzip coco_ann2017.zip -d coco_ann2017
+rm coco_ann2017.zip
 ```
