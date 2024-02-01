@@ -31,4 +31,5 @@ SentiCap + MSCOCO_2014_val: Papers with Code - SentiCap Dataset + COCO Dataset: 
 ```bash
 wget http://images.cocodataset.org/zips/val2017.zip -O coco_val2017.zip
 unzip coco_val2017.zip -d coco_val2017
+rm coco_val2017.zip
 ```
