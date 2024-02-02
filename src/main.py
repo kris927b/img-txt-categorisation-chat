@@ -111,6 +111,8 @@ def load_and_inspect_data(
 def main():
 	# handle arguments
 
+	# 0. Load and inspect the data
+
 	# read data
 	current_dir = os.path.dirname(os.path.realpath(__file__))
 	senticap_data_dir = os.path.join(current_dir, "..", "txt_data", "data")
@@ -122,7 +124,7 @@ def main():
 
 	coco_cap_data_path = os.path.join(coco_ann_data_dir, "captions_val2014.json")
 
-	# Load and inspect data
+	# Load and inspect data from the senticap dataset in JSON format
 	senticap_data = load_and_inspect_data(
 		coco_img_data_dir,
 		senticap_data_dir,
@@ -130,6 +132,9 @@ def main():
 		num_imgs_show=2,
 		pick_random=True
 	)
+
+	# Load and inspect data from the senticap dataset in CSV format
+	senticap_df = pd.read_csv(senticap_data_csv_path)
 
 	# Load the captions from the coco dataset
 	with open(coco_cap_data_path, "r") as f:
@@ -139,22 +144,62 @@ def main():
 	coco_cap_data_img = coco_cap_data["images"]
 	
 	# Create a dataframe from the coco captions
-	coco_cap_df = pd.DataFrame(coco_cap_data_ann)
+	coco_cap_ann_df = pd.DataFrame(coco_cap_data_ann)
+	coco_cap_img_df = pd.DataFrame(coco_cap_data_img)
 
-	print(coco_cap_df.head())
-	print("...")
-	print(coco_cap_df.tail())
-	print(coco_cap_df.describe())
-	print(coco_cap_df.info())
-	print(coco_cap_df.columns.values)
+	# Rename the id column to image_id
+	coco_cap_img_df.rename(columns={"id": "image_id"}, inplace=True)
 
+	if VERBOSE:
+		print(coco_cap_ann_df.head())
+		print("...")
+		print(coco_cap_ann_df.tail())
+		print(coco_cap_ann_df.describe())
+		print(coco_cap_ann_df.info())
+		print(coco_cap_ann_df.columns.values)
 
-	# Connecting senticap captions to sentiments with an ML model
+	# Add a filename column to the coco captions dataframe by merging with the images dataframe
+	coco_cap_df = pd.merge(coco_cap_ann_df, coco_cap_img_df, on="image_id")
 
+	if VERBOSE:
+		print(coco_cap_df.head())
+		print("...")
+		print(coco_cap_df.tail())
+		print(coco_cap_df.describe())
+		print(coco_cap_df.info())
+		print(coco_cap_df.columns.values)
 
+	# Can we find the first image in the coco data and show it with the captions?
+	img_filename = coco_cap_df["file_name"][10]
+	print("img_filename: ", img_filename)
 
-	# write data
-	# count
+	coco_caption_df = coco_cap_df[coco_cap_df["file_name"]==img_filename]
+	coco_caption_list = coco_caption_df["caption"].to_list()
+	
+	# Load image
+	img_path = os.path.join(coco_img_data_dir, img_filename)
+	img = mpimg.imread(img_path)
+	imgplot = plt.imshow(img)
+	
+	# Add the captions to the image plot
+	txt = "\n".join(coco_caption_list)
+	print(txt)
+	# imgplot.text(0, -0.5, txt, ha="left", wrap=True, color="white", fontsize=12, bbox=dict(facecolor='black', alpha=0.5))
+	plt.title(img_filename + "\n with captions:\n" + txt, fontsize=8)
+	plt.show()
+
+	# Tasks:
+	# 1. Sentiment: Connecting senticap captions to sentiments with a NLP model
+	# 	a. Get sentiments and captions from the senticap dataset
+
+	# 2. Topics: Connecting senticap captions to topics with a NLP model
+		
+	# 3. Image: Combining senticap captions with their images to predict the sentiment and topic
+		
+	# 4. Compare: Comparing the performance of the models on the different tasks, when captions only and when combined with images.
+		
+	# 5. Write a ChatBot UI in Streamlit to interact with the models and help the user organise their images. 
+
 
 if __name__ == "__main__":
 	main()
