@@ -63,7 +63,8 @@ is already downloaded in the repo, as the original JSON file `txt_data/data/sent
 
 #### COCO 2014
 The COCO 2014 validation images and annotations are downloaded and unfolded to the folder `img_data/coco_val2014` and `img_data/coco_ann2014` respectively.
-The images are in `jpg` format and annotations are in `JSON` format. In the `src/main.py` you can also see how you load the annotations, even though they are not used in this project. We get the annotations from the Senticap data.
+The images are in `jpg` format and annotations are in `JSON` format. In the `src/main.py` you can also see how you load the annotations and connect them to the images, even though the coco captions are more used for model prediction in this project. We get the annotations to train and evaluate a sentiment model from the Senticap data if this is needed.
+You can get more familiar with the COCO 2014 dataset by checking out this guide for the 2017 dataset - [MS COCO 2017: A Step-by-Step Guide to Loading and Visualizing](https://machinelearningspace.com/coco-dataset-a-step-by-step-guide-to-loading-and-visualizing/).
 
 ### Requirements
 You need at least Python 3.8 to run this project. [Download it here](https://www.python.org/downloads/).
