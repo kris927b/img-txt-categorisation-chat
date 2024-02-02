@@ -8,7 +8,7 @@ As a user I wish to get an overview over all the pictures and their descriptions
 ### Goal breakdown:
 All models available can be used to solve the task. These could be found on HuggingFace, Spacy, LangChain or other ML Libraries.  
 
-1. Sentiment: Show in practice how you would apply a machine learning model on the captions to extract the sentiment (negative, neutral or positive) of them.
+1. Sentiment: Show in practice how you would apply a machine learning model on the captions to extract the sentiment (negative or positive) of them.
 
 2. Topic: Show in practice how you would apply a ML model on the captions to extract the topic(s) that they belong to.
 
